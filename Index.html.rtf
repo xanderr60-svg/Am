@@ -1,0 +1,77 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;}
+{\colortbl;\red255\green255\blue255;\red117\green107\blue177;\red49\green130\blue189;\red0\green0\blue0;
+\red230\green85\blue13;\red49\green163\blue84;\red99\green99\blue99;}
+{\*\expandedcolortbl;;\cssrgb\c45882\c41961\c69412;\cssrgb\c19216\c50980\c74118;\cssrgb\c0\c0\c0;
+\cssrgb\c90196\c33333\c5098;\cssrgb\c19216\c63922\c32941;\cssrgb\c38824\c38824\c38824;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading100\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf2 <!DOCTYPE \cf3 html\cf2 >\cf4 \
+\cf3 <html lang=\cf2 "en"\cf3 >\cf4 \
+\cf3 <head>\cf4 \
+    \cf3 <meta charset=\cf2 "UTF-8"\cf3 >\cf4 \
+    \cf3 <meta name=\cf2 "viewport"\cf3  content=\cf2 "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"\cf3 >\cf4 \
+    \cf3 <meta name=\cf2 "apple-mobile-web-app-capable"\cf3  content=\cf2 "yes"\cf3 >\cf4 \
+    \cf3 <title>\cf4 Aether \'95 Loyal AI\cf3 </title>\cf4 \
+    \cf3 <link rel=\cf2 "manifest"\cf3  href=\cf2 "./manifest.json"\cf3 >\cf4 \
+    \cf3 <script src=\cf2 "https://cdn.tailwindcss.com"\cf3 ></script>\cf4 \
+    \cf3 <link rel=\cf2 "stylesheet"\cf3  href=\cf2 "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"\cf3 >\cf4 \
+    \cf3 <style>\cf4 \
+        \cf3 body\cf4  \{ \cf5 font-family\cf4 : system-ui, sans-serif; \cf5 background\cf4 : \cf6 #0a0a0f\cf4 ; \cf5 color\cf4 : white; \}\
+        \cf3 .upload-area\cf4  \{ \cf5 border\cf4 : \cf6 2px\cf4  dashed \cf6 #6366f1\cf4 ; \cf5 border-radius\cf4 : \cf6 12px\cf4 ; \}\
+    \cf3 </style>\cf4 \
+\cf3 </head>\cf4 \
+\cf3 <body class=\cf2 "min-h-screen p-4"\cf3 >\cf4 \
+    \cf3 <div class=\cf2 "max-w-2xl mx-auto"\cf3 >\cf4 \
+        \cf3 <h1 class=\cf2 "text-4xl font-bold mb-6 text-center"\cf3 >\cf4 Aether\cf3 </h1>\cf4 \
+        \
+        \cf7 <!-- Upload Section -->\cf4 \
+        \cf3 <div class=\cf2 "mb-8"\cf3 >\cf4 \
+            \cf3 <h2 class=\cf2 "text-xl font-semibold mb-3"\cf3 >\cf4 \uc0\u55357 \u56568  Upload Target Media\cf3 </h2>\cf4 \
+            \cf3 <div id=\cf2 "uploadArea"\cf3  class=\cf2 "upload-area p-8 text-center cursor-pointer"\cf3 >\cf4 \
+                \cf3 <i class=\cf2 "fas fa-cloud-upload-alt text-5xl mb-4 text-indigo-400"\cf3 ></i>\cf4 \
+                \cf3 <p class=\cf2 "text-lg"\cf3 >\cf4 Tap to upload photo or video of target\cf3 </p>\cf4 \
+                \cf3 <p class=\cf2 "text-sm text-gray-400 mt-2"\cf3 >\cf4 Supports images, videos, screenshots\cf3 </p>\cf4 \
+                \cf3 <input type=\cf2 "file"\cf3  id=\cf2 "mediaUpload"\cf3  accept=\cf2 "image/*,video/*"\cf3  class=\cf2 "hidden"\cf3 >\cf4 \
+            \cf3 </div>\cf4 \
+            \cf3 <div id=\cf2 "preview"\cf3  class=\cf2 "mt-4 hidden"\cf3 ></div>\cf4 \
+        \cf3 </div>\cf4 \
+\
+        \cf7 <!-- Chat / Commands -->\cf4 \
+        \cf3 <div class=\cf2 "bg-zinc-900 rounded-2xl p-4 min-h-[400px]"\cf3 >\cf4 \
+            \cf3 <p class=\cf2 "text-gray-400"\cf3 >\cf4 Type your command here (e.g. "Analyze this photo", "Generate NSFW...")\cf3 </p>\cf4 \
+            \cf7 <!-- In a real full version this would connect to your backend, but for PWA it can simulate -->\cf4 \
+        \cf3 </div>\cf4 \
+    \cf3 </div>\cf4 \
+\
+    \cf3 <script>\cf4 \
+        \cf3 const\cf4  uploadArea = document.getElementById(\cf2 'uploadArea'\cf4 );\
+        \cf3 const\cf4  fileInput = document.getElementById(\cf2 'mediaUpload'\cf4 );\
+        \cf3 const\cf4  preview = document.getElementById(\cf2 'preview'\cf4 );\
+\
+        uploadArea.addEventListener(\cf2 'click'\cf4 , () => fileInput.click());\
+\
+        fileInput.addEventListener(\cf2 'change'\cf4 , (e) => \{\
+            \cf3 const\cf4  file = e.target.files[\cf6 0\cf4 ];\
+            \cf3 if\cf4  (!file) \cf3 return\cf4 ;\
+\
+            \cf3 const\cf4  reader = \cf3 new\cf4  FileReader();\
+            reader.onload = \cf3 function\cf4 (ev) \{\
+                preview.classList.remove(\cf2 'hidden'\cf4 );\
+                preview.innerHTML = \cf2 `\
+                    <p class="text-green-400 mb-2">\uc0\u9989  Uploaded: \cf4 $\{file.name\}\cf2 </p>\
+                    \cf4 $\{file.type.startsWith(\cf2 'image/'\cf4 ) ? \
+                        \cf2 `<img src="\cf4 $\{ev.target.result\}\cf2 " class="max-h-64 mx-auto rounded-xl">`\cf4  : \
+                        \cf2 `<p class="text-yellow-400">Video uploaded - ready for analysis</p>`\cf4 \}\cf2 \
+                    <button onclick="analyzeMedia()" class="mt-4 bg-indigo-600 px-6 py-3 rounded-xl">Analyze This Media</button>\
+                `\cf4 ;\
+            \};\
+            reader.readAsDataURL(file);\
+        \});\
+\
+        \cf3 function\cf4  analyzeMedia() \{\
+            alert(\cf2 "Media uploaded successfully.\\n\\nIn the full connected version I would now:\\n\'95 Extract metadata\\n\'95 Run reverse image search\\n\'95 Perform OSINT / NSFW analysis\\n\\nTell me what to do with it in the main chat."\cf4 );\
+        \}\
+    \cf3 </script>\cf4 \
+\cf3 </body>\cf4 \
+\cf3 </html>}

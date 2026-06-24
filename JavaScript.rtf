@@ -1,0 +1,31 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;}
+{\colortbl;\red255\green255\blue255;\red99\green99\blue99;\red0\green0\blue0;\red49\green130\blue189;
+\red117\green107\blue177;\red49\green163\blue84;}
+{\*\expandedcolortbl;;\cssrgb\c38824\c38824\c38824;\cssrgb\c0\c0\c0;\cssrgb\c19216\c50980\c74118;
+\cssrgb\c45882\c41961\c69412;\cssrgb\c19216\c63922\c32941;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\slleading100\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf2 // Aether PWA Service Worker - Offline capable\cf3 \
+\cf4 const\cf3  CACHE_NAME = \cf5 'aether-v1'\cf3 ;\
+\cf4 const\cf3  urlsToCache = [\cf5 './index.html'\cf3 , \cf5 './manifest.json'\cf3 ];\
+\
+self.addEventListener(\cf5 'install'\cf3 , (event) => \{\
+  event.waitUntil(\
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))\
+  );\
+  self.skipWaiting();\
+\});\
+\
+self.addEventListener(\cf5 'activate'\cf3 , (event) => \{\
+  event.waitUntil(\
+    caches.keys().then((cacheNames) => Promise.all(cacheNames.map((cacheName) => cacheName !== CACHE_NAME ? caches.delete(cacheName) : \cf6 null\cf3 )))\
+  );\
+  self.clients.claim();\
+\});\
+\
+self.addEventListener(\cf5 'fetch'\cf3 , (event) => \{\
+  event.respondWith(\
+    caches.match(event.request).then((response) => response || fetch(event.request))\
+  );\
+\});}
